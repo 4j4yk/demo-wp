@@ -58,6 +58,27 @@ body {
   font-size: 1rem;
 }
 
+.dad-joke-banner {
+  margin: 16px 0 0;
+  padding: 12px 14px;
+  border: 1px solid var(--rule);
+  background: rgba(255, 255, 255, 0.45);
+}
+
+.dad-joke-label {
+  display: inline-block;
+  margin-right: 8px;
+  color: var(--muted);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+.dad-joke-text {
+  color: var(--ink);
+}
+
 .post-card {
   border-bottom: 1px solid var(--rule);
   padding: 0 0 18px;

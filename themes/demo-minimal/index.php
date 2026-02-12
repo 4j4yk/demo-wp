@@ -25,6 +25,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<?php if ( get_bloginfo( 'description' ) ) : ?>
 			<p class="site-tagline"><?php bloginfo( 'description' ); ?></p>
 		<?php endif; ?>
+		<?php
+		$header_joke = apply_filters( 'demo_minimal_header_joke', '' );
+		if ( '' !== trim( (string) $header_joke ) ) :
+			?>
+			<p class="dad-joke-banner">
+				<span class="dad-joke-label">Dad joke of the hour:</span>
+				<span class="dad-joke-text"><?php echo esc_html( $header_joke ); ?></span>
+			</p>
+		<?php endif; ?>
 	</header>
 
 	<section class="posts">
