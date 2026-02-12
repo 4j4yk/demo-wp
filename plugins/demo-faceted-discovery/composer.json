@@ -1,0 +1,24 @@
+{
+  "name": "demo/demo-faceted-discovery",
+  "description": "WordPress plugin for taxonomy-driven report discovery with REST facets.",
+  "type": "wordpress-plugin",
+  "license": "GPL-2.0-or-later",
+  "keywords": [
+    "wordpress",
+    "wordpress-plugin",
+    "rest-api",
+    "taxonomy",
+    "faceted-search"
+  ],
+  "require": {
+    "php": ">=7.4"
+  },
+  "autoload": {
+    "classmap": [
+      "includes/"
+    ]
+  },
+  "extra": {
+    "installer-name": "demo-faceted-discovery"
+  }
+}
