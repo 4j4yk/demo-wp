@@ -17,23 +17,34 @@ if ( ! defined( 'ABSPATH' ) ) {
 </head>
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
-<main class="demo-wrap">
-	<h1><?php bloginfo( 'name' ); ?></h1>
-	<p><?php bloginfo( 'description' ); ?></p>
-	<p>Custom minimal theme deployed via GitHub Actions.</p>
+<main class="paper">
+	<header class="site-head">
+		<h1 class="site-title">
+			<a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php bloginfo( 'name' ); ?></a>
+		</h1>
+		<?php if ( get_bloginfo( 'description' ) ) : ?>
+			<p class="site-tagline"><?php bloginfo( 'description' ); ?></p>
+		<?php endif; ?>
+	</header>
 
-	<?php if ( have_posts() ) : ?>
-		<?php while ( have_posts() ) : the_post(); ?>
-			<article>
-				<h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
-				<div><?php the_excerpt(); ?></div>
-			</article>
-		<?php endwhile; ?>
-	<?php else : ?>
-		<p>No content found yet.</p>
-	<?php endif; ?>
+	<section class="posts">
+		<?php if ( have_posts() ) : ?>
+			<?php while ( have_posts() ) : the_post(); ?>
+				<article class="post-card">
+					<h2 class="post-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
+					<p class="post-meta"><?php echo esc_html( get_the_date( 'M j, Y' ) ); ?></p>
+					<div class="post-excerpt"><?php the_excerpt(); ?></div>
+				</article>
+			<?php endwhile; ?>
+		<?php else : ?>
+			<p class="empty">No content found yet.</p>
+		<?php endif; ?>
+	</section>
+
+	<footer class="site-foot">
+		<p>Demo Minimal theme. Clean, paper-like fallback for the WordPress deploy demo.</p>
+	</footer>
 </main>
 <?php wp_footer(); ?>
 </body>
 </html>
-
