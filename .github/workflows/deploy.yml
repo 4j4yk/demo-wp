@@ -30,10 +30,20 @@ jobs:
           ssh-keyscan -H "${{ secrets.SSH_HOST }}" >> ~/.ssh/known_hosts
           chmod 600 ~/.ssh/known_hosts
 
+      - name: Prepare remote deploy paths
+        run: |
+          ssh -o StrictHostKeyChecking=yes "${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}" '
+            set -e
+            sudo mkdir -p /opt/wp-demo/deploy/plugins /opt/wp-demo/deploy/themes
+            sudo chown -R "${USER}:${USER}" /opt/wp-demo/deploy
+            command -v rsync >/dev/null 2>&1 || (sudo apt-get update && sudo apt-get install -y rsync)
+            ls -ld /opt/wp-demo/deploy /opt/wp-demo/deploy/plugins /opt/wp-demo/deploy/themes
+          '
+
       - name: Deploy plugins
         run: |
-          rsync -az --delete -e "ssh -o StrictHostKeyChecking=yes" ./plugins/ "${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/opt/wp-demo/deploy/plugins/"
+          rsync -rltz --delete --omit-dir-times --no-owner --no-group --no-perms -e "ssh -o StrictHostKeyChecking=yes" ./plugins/ "${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/opt/wp-demo/deploy/plugins/"
 
       - name: Deploy themes
         run: |
-          rsync -az --delete -e "ssh -o StrictHostKeyChecking=yes" ./themes/ "${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/opt/wp-demo/deploy/themes/"
+          rsync -rltz --delete --omit-dir-times --no-owner --no-group --no-perms -e "ssh -o StrictHostKeyChecking=yes" ./themes/ "${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/opt/wp-demo/deploy/themes/"
